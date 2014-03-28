@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'pry-debugger'
+
 class Node
   attr_reader :value, :children
 
@@ -34,17 +37,19 @@ class Node
 
   def bfs(value, queue = [])
     # if the given value is the same as this node return self
-    if @value = value
+    if @value == value
       return self
     # Otherwise add all of this nodes children to the queue
     # of nodes needed to be searched
     else
-      queue << @children
+      queue += @children
        # While the queue is not empty
       while queue.length > 0
         # grab the first element in the queue (and remove it)
         # run bfs on that node with the proper argument and get the result
-        queue.shift.bfs(value, queue)
+        x = queue.shift
+        y = x.bfs(value, queue)
+        return y if y
       end
     end
     
